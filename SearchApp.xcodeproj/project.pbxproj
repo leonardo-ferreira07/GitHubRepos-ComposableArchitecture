@@ -27,6 +27,10 @@
 		A75B25A224252FDB00C80A5A /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75B25A124252FDB00C80A5A /* ViewModel.swift */; };
 		A75B25AF242548D500C80A5A /* PullRequestsBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75B25AE242548D500C80A5A /* PullRequestsBuilder.swift */; };
 		A75B25B224254E1E00C80A5A /* RequestMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75B25B124254E1E00C80A5A /* RequestMethod.swift */; };
+		A79A500B244436F0001263D4 /* System.swift in Sources */ = {isa = PBXBuildFile; fileRef = A79A500A244436F0001263D4 /* System.swift */; };
+		A79A500C244436F0001263D4 /* System.swift in Sources */ = {isa = PBXBuildFile; fileRef = A79A500A244436F0001263D4 /* System.swift */; };
+		A79A500E24443747001263D4 /* Feedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = A79A500D24443747001263D4 /* Feedback.swift */; };
+		A79A500F24443747001263D4 /* Feedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = A79A500D24443747001263D4 /* Feedback.swift */; };
 		A7C0F58422CEABB8008BEDA2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C0F58322CEABB8008BEDA2 /* AppDelegate.swift */; };
 		A7C0F58622CEABB8008BEDA2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C0F58522CEABB8008BEDA2 /* SceneDelegate.swift */; };
 		A7C0F58A22CEABBA008BEDA2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A7C0F58922CEABBA008BEDA2 /* Assets.xcassets */; };
@@ -140,6 +144,8 @@
 		A75B25A124252FDB00C80A5A /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		A75B25AE242548D500C80A5A /* PullRequestsBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullRequestsBuilder.swift; sourceTree = "<group>"; };
 		A75B25B124254E1E00C80A5A /* RequestMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestMethod.swift; sourceTree = "<group>"; };
+		A79A500A244436F0001263D4 /* System.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = System.swift; sourceTree = "<group>"; };
+		A79A500D24443747001263D4 /* Feedback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feedback.swift; sourceTree = "<group>"; };
 		A7C0F58022CEABB8008BEDA2 /* SearchApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SearchApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7C0F58322CEABB8008BEDA2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A7C0F58522CEABB8008BEDA2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -330,6 +336,8 @@
 			isa = PBXGroup;
 			children = (
 				A7D9D09A2422799700850327 /* Decoder.swift */,
+				A79A500A244436F0001263D4 /* System.swift */,
+				A79A500D24443747001263D4 /* Feedback.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -554,6 +562,7 @@
 				A7CC6776242AC2F7000C3597 /* PullRequestsBuilder.swift in Sources */,
 				A7CC6775242AC2F7000C3597 /* RepositoriesView.swift in Sources */,
 				A75AB517242AC28C0099D77A /* NotificationController.swift in Sources */,
+				A79A500C244436F0001263D4 /* System.swift in Sources */,
 				A7CC6781242AC2F7000C3597 /* Constants.swift in Sources */,
 				A7CC677B242AC2F7000C3597 /* PullRequestsView.swift in Sources */,
 				A7CC6774242AC2F7000C3597 /* RepositoryRow.swift in Sources */,
@@ -566,6 +575,7 @@
 				A75AB515242AC28C0099D77A /* ExtensionDelegate.swift in Sources */,
 				A75AB519242AC28C0099D77A /* NotificationView.swift in Sources */,
 				A7CC676E242AC2F7000C3597 /* RepositoriesNavigator.swift in Sources */,
+				A79A500F24443747001263D4 /* Feedback.swift in Sources */,
 				A7CC6773242AC2F7000C3597 /* SearchView.swift in Sources */,
 				A7CC6779242AC2F7000C3597 /* PullRequestDetailViewModel.swift in Sources */,
 				A7CC676B242AC2F7000C3597 /* LoadingView.swift in Sources */,
@@ -582,12 +592,14 @@
 			files = (
 				A75B25B224254E1E00C80A5A /* RequestMethod.swift in Sources */,
 				A7D9D0A924227BB800850327 /* NetworkService.swift in Sources */,
+				A79A500E24443747001263D4 /* Feedback.swift in Sources */,
 				A7D9D0BC2422924B00850327 /* View+Keyboard.swift in Sources */,
 				A7D9D0B32422810D00850327 /* RepositoriesBuilder.swift in Sources */,
 				A7D9D0AD24227C8B00850327 /* RepositoriesService.swift in Sources */,
 				A75B259E242529DA00C80A5A /* LoadingView.swift in Sources */,
 				A7C0F59C22CEB4F0008BEDA2 /* SearchView.swift in Sources */,
 				A7C0F58422CEABB8008BEDA2 /* AppDelegate.swift in Sources */,
+				A79A500B244436F0001263D4 /* System.swift in Sources */,
 				A7D9D09E242279D500850327 /* GenericError.swift in Sources */,
 				A7D9D0AF24227F6800850327 /* Constants.swift in Sources */,
 				A7D9D09B2422799700850327 /* Decoder.swift in Sources */,
