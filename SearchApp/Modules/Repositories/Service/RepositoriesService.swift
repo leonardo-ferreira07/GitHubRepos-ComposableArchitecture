@@ -8,9 +8,10 @@
 
 import Foundation
 import Combine
+import ComposableArchitecture
 
 protocol RepositoriesFetchable {
-    func fetchRepositories(forText text: String) -> AnyPublisher<Repositories, GenericError>
+    func fetchRepositories(forText text: String) -> Effect<Repositories, GenericError>
 }
 
 struct RepositoriesService {
@@ -25,8 +26,8 @@ struct RepositoriesService {
 // MARK: - Fetchable
 
 extension RepositoriesService: RepositoriesFetchable {
-    func fetchRepositories(forText text: String) -> AnyPublisher<Repositories, GenericError> {
-        return requester.request(with: makeRepositoriesSearch(withText: text))
+    func fetchRepositories(forText text: String) -> Effect<Repositories, GenericError> {
+        return requester.requestE(with: makeRepositoriesSearch(withText: text))
     }
 }
 
