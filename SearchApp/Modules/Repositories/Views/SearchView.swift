@@ -18,6 +18,7 @@ struct SearchView: View {
     var body: some View {
         HStack(alignment: .center) {
             TextField("e.g. Swift", text: $viewModel.searchText)
+            .disableAutocorrection(true)
         }
     }
 }
