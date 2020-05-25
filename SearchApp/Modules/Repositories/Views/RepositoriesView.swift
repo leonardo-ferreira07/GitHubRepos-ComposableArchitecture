@@ -63,7 +63,7 @@ private extension RepositoriesView {
             SearchView(store: store)
             
             if store.repositories.isEmpty {
-//                LoadingView(viewModel: )
+                LoadingView(isLoading: store.isLoading)
             } else {
                 searchingForSection(store)
                 repositoriesSection(store)

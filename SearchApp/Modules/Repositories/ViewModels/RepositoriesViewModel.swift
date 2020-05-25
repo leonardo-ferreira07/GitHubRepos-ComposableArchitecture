@@ -13,6 +13,7 @@ import ComposableArchitecture
 struct RepositoriesSearchState: Equatable {
     var repositories: [RepositoryRowViewModel] = []
     var searchQuery = ""
+    var isLoading: Bool = false
 }
 
 enum RepositoriesSearchAction: Equatable {
@@ -34,10 +35,12 @@ class RepositoriesViewModel: NSObject {
         switch action {
         case .repositoriesResponse(.failure):
             state.repositories = []
+            state.isLoading = false
             return .none
             
         case let .repositoriesResponse(.success(response)):
             state.repositories = response.items.map(RepositoryRowViewModel.init)
+            state.isLoading = false
             return .none
             
         case let .searchQueryChanged(query):
@@ -49,9 +52,11 @@ class RepositoriesViewModel: NSObject {
             // any in-flight search requests too, otherwise we may get data coming in later.
             guard !query.isEmpty else {
                 state.repositories = []
+                state.isLoading = false
                 return .cancel(id: SearchRepositoryId())
             }
             
+            state.isLoading = true
             return environment.repositoryService
                 .fetchRepositories(forText: query)
                 .receive(on: environment.mainQueue)
