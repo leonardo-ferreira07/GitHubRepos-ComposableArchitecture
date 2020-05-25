@@ -9,10 +9,10 @@
 import SwiftUI
 
 struct LoadingView: View {
-    @ObservedObject private var viewModel: ViewModel
+    private var isLoading: Bool = false
     
-    init(viewModel: ViewModel) {
-        self.viewModel = viewModel
+    init(isLoading: Bool) {
+        self.isLoading = isLoading
     }
     
     var body: some View {
@@ -21,7 +21,7 @@ struct LoadingView: View {
     
     var emptySection: some View {
         Section {
-            if viewModel.isLoading {
+            if isLoading {
                 Text("Loading some things for you... 🤔")
                     .foregroundColor(.gray)
             } else {
@@ -34,6 +34,6 @@ struct LoadingView: View {
 
 struct LoadingView_Previews: PreviewProvider {
     static var previews: some View {
-        LoadingView(viewModel: ViewModel())
+        LoadingView(isLoading: true)
     }
 }
