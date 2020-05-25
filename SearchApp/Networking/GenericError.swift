@@ -8,9 +8,7 @@
 
 import Foundation
 
-import Foundation
-
-enum GenericError: Error {
+enum GenericError: Error, Equatable {
     case decoding(description: String)
     case network(description: String)
 }
