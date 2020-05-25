@@ -8,51 +8,58 @@
 
 import Foundation
 import Combine
+import ComposableArchitecture
 
-class RepositoriesViewModel: ViewModel {
+struct RepositoriesSearchState: Equatable {
+    var repositories: [RepositoryRowViewModel] = []
+    var searchQuery = ""
+}
+
+enum RepositoriesSearchAction: Equatable {
+    case repositoriesResponse(Result<Repositories, GenericError>)
+    case searchQueryChanged(String)
+}
+
+struct RepositoriesSearchEnvironment {
+    var repositoryService: RepositoriesService
+    var mainQueue: AnySchedulerOf<DispatchQueue>
+}
+
+class RepositoriesViewModel: NSObject {
     
-    @Published var searchText: String = ""
-    @Published private(set) var dataSource: [RepositoryRowViewModel] = []
-    
-    private let repositoriesFetcher: RepositoriesService
-    
-    init(repositoriesFetcher: RepositoriesService, scheduler: DispatchQueue = DispatchQueue(label: "RepositoriesViewModel")) {
-        self.repositoriesFetcher = repositoriesFetcher
-        super.init()
-        
-        $searchText
-            .dropFirst(1)
-            .debounce(for: .seconds(0.5), scheduler: scheduler)
-            .sink(receiveValue: fetchRepositories(forsearchText:))
-            .store(in: &disposables)
-    }
-    
-    private func fetchRepositories(forsearchText searchText: String) {
-        DispatchQueue.main.async { [weak self] in self?.startLoading() }
-        
-        repositoriesFetcher.fetchRepositories(forText: searchText)
-        .map { response in
-            response.items.map(RepositoryRowViewModel.init)
-        }
-        .map(Array.removeDuplicates)
-        .receive(on: DispatchQueue.main)
-        .sink(receiveCompletion: { [weak self] value in
-            guard let self = self else { return }
-            switch value {
-            case .failure( let error):
-                print("## \(error)")
-                self.stopLoading()
-                self.dataSource = []
-            case .finished:
-                break
+    // MARK: - Search feature reducer
+
+    let repoSearchReducer = Reducer<RepositoriesSearchState, RepositoriesSearchAction, RepositoriesSearchEnvironment> {
+        state, action, environment in
+        switch action {
+        case .repositoriesResponse(.failure):
+            state.repositories = []
+            return .none
+            
+        case let .repositoriesResponse(.success(response)):
+            state.repositories = response.items.map(RepositoryRowViewModel.init)
+            return .none
+            
+        case let .searchQueryChanged(query):
+            struct SearchRepositoryId: Hashable {}
+            
+            state.searchQuery = query
+            
+            // When the query is cleared we can clear the search results, but we have to make sure to cancel
+            // any in-flight search requests too, otherwise we may get data coming in later.
+            guard !query.isEmpty else {
+                state.repositories = []
+                return .cancel(id: SearchRepositoryId())
             }
-        },
-        receiveValue: { [weak self] repos in
-            guard let self = self else { return }
-            self.stopLoading()
-            self.dataSource = repos
-        })
-        .store(in: &disposables)
+            
+            return environment.repositoryService
+                .fetchRepositories(forText: query)
+                .receive(on: environment.mainQueue)
+                .catchToEffect()
+                .debounce(id: SearchRepositoryId(), for: 0.3, scheduler: environment.mainQueue)
+                .map(RepositoriesSearchAction.repositoriesResponse)
+        }
+
     }
     
 }

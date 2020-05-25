@@ -7,12 +7,20 @@
 //
 
 import SwiftUI
+import ComposableArchitecture
 
 struct RepositoriesBuilder {
     func makeRepositoriesView(repositoriesFetcher: RepositoriesService) -> RepositoriesView {
-        let viewModel = RepositoriesViewModel(repositoriesFetcher: repositoriesFetcher)
+        let viewModel = RepositoriesViewModel()
         let repoNavigator = RepositoriesNavigator(pullRequestsBuilder: PullRequestsBuilder())
-        return RepositoriesView(viewModel: viewModel, repositoriesNavigator: repoNavigator)
+        let store = Store(
+        initialState: RepositoriesSearchState(),
+        reducer: viewModel.repoSearchReducer.debug(),
+        environment: RepositoriesSearchEnvironment(
+          repositoryService: repositoriesFetcher,
+          mainQueue: DispatchQueue.main.eraseToAnyScheduler())
+        )
+        return RepositoriesView(store: store, repositoriesNavigator: repoNavigator)
     }
     
 }

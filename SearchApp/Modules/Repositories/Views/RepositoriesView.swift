@@ -7,35 +7,26 @@
 //
 
 import SwiftUI
+import ComposableArchitecture
 
 struct RepositoriesView: View {
-    @ObservedObject var viewModel: RepositoriesViewModel
+    let store: Store<RepositoriesSearchState, RepositoriesSearchAction>
     
     private let pullRequestsBuilder: PullRequestsBuilder
     private let repositoriesNavigator: RepositoriesNavigator
     
-    init(viewModel: RepositoriesViewModel,
+    init(store: Store<RepositoriesSearchState, RepositoriesSearchAction>,
          repositoriesNavigator: RepositoriesNavigator) {
-        self.viewModel = viewModel
+        self.store = store
         self.pullRequestsBuilder = .init()
         self.repositoriesNavigator = repositoriesNavigator
     }
     
     var body: some View {
-        #if os(watchOS)
-            return list
-        #else
-            return NavigationView {
-                list
-                .listStyle(GroupedListStyle())
-                .navigationBarTitle("GitHub Search 👨🏻‍💻")
-                .gesture(DragGesture().onChanged({ (_) in
-                    self.dismissKeyboard()
-                }))
-                .padding(.top, padding)
-                .onDisappear(perform: viewModel.onDisappear)
-            }
-        #endif
+        
+        WithViewStore(store) { viewStore in
+            self.myBody(viewStore)
+        }
     }
     
     private var padding: CGFloat {
@@ -49,32 +40,59 @@ struct RepositoriesView: View {
 
 private extension RepositoriesView {
     
-    var list: some View {
+    func myBody(_ store: ViewStore<RepositoriesSearchState, RepositoriesSearchAction>) -> some View {
+        #if os(watchOS)
+                    return list(store)
+                #else
+                    return NavigationView {
+                        list(store)
+                        .listStyle(GroupedListStyle())
+                        .navigationBarTitle("GitHub Search 👨🏻‍💻")
+                        .gesture(DragGesture().onChanged({ (_) in
+                            self.dismissKeyboard()
+                        }))
+                        .padding(.top, padding)
+        //                .onDisappear(perform: viewModel.onDisappear)
+                    }
+                #endif
+
+    }
+    
+    func list(_ store: ViewStore<RepositoriesSearchState, RepositoriesSearchAction>) -> some View {
         List {
-            SearchView(viewModel: viewModel)
-            
-            if viewModel.dataSource.isEmpty {
-                LoadingView(viewModel: viewModel)
-            } else {
-                searchingForSection
-                repositoriesSection
+            HStack(alignment: .center) {
+                #if os(watchOS)
+                    TextField("e.g. Swift", text: store.binding(
+                    get: { $0.searchQuery }, send: RepositoriesSearchAction.searchQueryChanged))
+                #else
+                    TextField("e.g. Swift", text: store.binding(
+                    get: { $0.searchQuery }, send: RepositoriesSearchAction.searchQueryChanged))
+                        .disableAutocorrection(true)
+                #endif
             }
+            
+//            if viewModel.dataSource.isEmpty {
+//                LoadingView(viewModel: viewModel)
+//            } else {
+                searchingForSection(store)
+                repositoriesSection(store)
+//            }
         }
     }
     
-    var repositoriesSection: some View {
+    func repositoriesSection(_ store: ViewStore<RepositoriesSearchState, RepositoriesSearchAction>) -> some View {
         Section {
-            ForEach(viewModel.dataSource) { (repo) in
+            ForEach(store.repositories) { (repo) in
                 self.repositoriesNavigator.navigateToPullRequests(repo)
             }
         }
     }
     
-    var searchingForSection: some View {
+    func searchingForSection(_ store: ViewStore<RepositoriesSearchState, RepositoriesSearchAction>) -> some View {
         Section {
             VStack(alignment: .leading) {
                 Text("Searching for:")
-                Text(viewModel.searchText)
+                Text(store.searchQuery)
                     .font(.caption)
                     .foregroundColor(.gray)
             }
