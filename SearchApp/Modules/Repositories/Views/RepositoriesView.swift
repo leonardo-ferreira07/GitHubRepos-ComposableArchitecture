@@ -42,20 +42,19 @@ private extension RepositoriesView {
     
     func myBody(_ store: ViewStore<RepositoriesSearchState, RepositoriesSearchAction>) -> some View {
         #if os(watchOS)
-                    return list(store)
-                #else
-                    return NavigationView {
-                        list(store)
-                        .listStyle(GroupedListStyle())
-                        .navigationBarTitle("GitHub Search 👨🏻‍💻")
-                        .gesture(DragGesture().onChanged({ (_) in
-                            self.dismissKeyboard()
-                        }))
-                        .padding(.top, padding)
-        //                .onDisappear(perform: viewModel.onDisappear)
-                    }
-                #endif
+            return list(store)
+        #else
+            return NavigationView {
+                list(store)
+                .listStyle(GroupedListStyle())
+                .navigationBarTitle("GitHub Search 👨🏻‍💻")
+                .gesture(DragGesture().onChanged({ (_) in
+                    self.dismissKeyboard()
+                }))
+                .padding(.top, padding)
 
+            }
+        #endif
     }
     
     func list(_ store: ViewStore<RepositoriesSearchState, RepositoriesSearchAction>) -> some View {
