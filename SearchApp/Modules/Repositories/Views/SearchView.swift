@@ -17,8 +17,12 @@ struct SearchView: View {
     
     var body: some View {
         HStack(alignment: .center) {
-            TextField("e.g. Swift", text: $viewModel.searchText)
-            .disableAutocorrection(true)
+            #if os(watchOS)
+                TextField("e.g. Swift", text: $viewModel.searchText)
+            #else
+                TextField("e.g. Swift", text: $viewModel.searchText)
+                    .disableAutocorrection(true)
+            #endif
         }
     }
 }
