@@ -78,6 +78,8 @@
 		A7E66DBC2426707B00D1FD88 /* RepositoriesNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7E66DBB2426707B00D1FD88 /* RepositoriesNavigator.swift */; };
 		A7EDF4B1247C277700B43ED4 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = A7EDF4B0247C277700B43ED4 /* ComposableArchitecture */; };
 		A7EDF4B3247C277700B43ED4 /* ComposableCoreLocation in Frameworks */ = {isa = PBXBuildFile; productRef = A7EDF4B2247C277700B43ED4 /* ComposableCoreLocation */; };
+		A7EDF4B6247C2D4A00B43ED4 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = A7EDF4B5247C2D4A00B43ED4 /* ComposableArchitecture */; };
+		A7EDF4B8247C2D4A00B43ED4 /* ComposableCoreLocation in Frameworks */ = {isa = PBXBuildFile; productRef = A7EDF4B7247C2D4A00B43ED4 /* ComposableCoreLocation */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -178,6 +180,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A7EDF4B6247C2D4A00B43ED4 /* ComposableArchitecture in Frameworks */,
+				A7EDF4B8247C2D4A00B43ED4 /* ComposableCoreLocation in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -296,6 +300,7 @@
 				A75AB500242AC28B0099D77A /* SearchAppWatch */,
 				A75AB50F242AC28C0099D77A /* SearchAppWatch Extension */,
 				A7C0F58122CEABB8008BEDA2 /* Products */,
+				A7EDF4B4247C2D4A00B43ED4 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -423,6 +428,13 @@
 			path = ViewModels;
 			sourceTree = "<group>";
 		};
+		A7EDF4B4247C2D4A00B43ED4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -456,6 +468,10 @@
 			dependencies = (
 			);
 			name = "SearchAppWatch Extension";
+			packageProductDependencies = (
+				A7EDF4B5247C2D4A00B43ED4 /* ComposableArchitecture */,
+				A7EDF4B7247C2D4A00B43ED4 /* ComposableCoreLocation */,
+			);
 			productName = "SearchAppWatch Extension";
 			productReference = A75AB50B242AC28C0099D77A /* SearchAppWatch Extension.appex */;
 			productType = "com.apple.product-type.watchkit2-extension";
@@ -972,6 +988,16 @@
 			productName = ComposableArchitecture;
 		};
 		A7EDF4B2247C277700B43ED4 /* ComposableCoreLocation */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A7EDF4AF247C277700B43ED4 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
+			productName = ComposableCoreLocation;
+		};
+		A7EDF4B5247C2D4A00B43ED4 /* ComposableArchitecture */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A7EDF4AF247C277700B43ED4 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
+			productName = ComposableArchitecture;
+		};
+		A7EDF4B7247C2D4A00B43ED4 /* ComposableCoreLocation */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = A7EDF4AF247C277700B43ED4 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
 			productName = ComposableCoreLocation;
