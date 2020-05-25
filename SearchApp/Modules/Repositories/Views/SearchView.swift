@@ -7,30 +7,25 @@
 //
 
 import SwiftUI
+import ComposableArchitecture
 
-//struct SearchView: View {
-//    @ObservedObject private var viewModel: RepositoriesViewModel
-//    
-//    init(viewModel: RepositoriesViewModel) {
-//        self.viewModel = viewModel
-//    }
-//    
-//    var body: some View {
-//        HStack(alignment: .center) {
-//            #if os(watchOS)
-//                TextField("e.g. Swift", text: $viewModel.searchText)
-//            #else
-//                TextField("e.g. Swift", text: $viewModel.searchText)
-//                    .disableAutocorrection(true)
-//            #endif
-//        }
-//    }
-//}
-//
-//#if DEBUG
-//struct SearchView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        SearchView(viewModel: RepositoriesViewModel(repositoriesFetcher: RepositoriesService()))
-//    }
-//}
-//#endif
+struct SearchView: View {
+    let store: ViewStore<RepositoriesSearchState, RepositoriesSearchAction>
+    
+    init(store: ViewStore<RepositoriesSearchState, RepositoriesSearchAction>) {
+        self.store = store
+    }
+    
+    var body: some View {
+        HStack(alignment: .center) {
+            #if os(watchOS)
+                TextField("e.g. Swift", text: store.binding(
+                get: { $0.searchQuery }, send: RepositoriesSearchAction.searchQueryChanged))
+            #else
+                TextField("e.g. Swift", text: store.binding(
+                get: { $0.searchQuery }, send: RepositoriesSearchAction.searchQueryChanged))
+                    .disableAutocorrection(true)
+            #endif
+        }
+    }
+}

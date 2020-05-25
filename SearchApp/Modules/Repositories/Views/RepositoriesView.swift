@@ -60,23 +60,14 @@ private extension RepositoriesView {
     
     func list(_ store: ViewStore<RepositoriesSearchState, RepositoriesSearchAction>) -> some View {
         List {
-            HStack(alignment: .center) {
-                #if os(watchOS)
-                    TextField("e.g. Swift", text: store.binding(
-                    get: { $0.searchQuery }, send: RepositoriesSearchAction.searchQueryChanged))
-                #else
-                    TextField("e.g. Swift", text: store.binding(
-                    get: { $0.searchQuery }, send: RepositoriesSearchAction.searchQueryChanged))
-                        .disableAutocorrection(true)
-                #endif
-            }
+            SearchView(store: store)
             
-//            if viewModel.dataSource.isEmpty {
-//                LoadingView(viewModel: viewModel)
-//            } else {
+            if store.repositories.isEmpty {
+//                LoadingView(viewModel: )
+            } else {
                 searchingForSection(store)
                 repositoriesSection(store)
-//            }
+            }
         }
     }
     
