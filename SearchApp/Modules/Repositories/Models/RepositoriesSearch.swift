@@ -8,11 +8,16 @@
 
 import Foundation
 
-struct Repository: Decodable {
+struct Repository: Decodable, Equatable {
     var id: Int
     let name: String?
     let description: String?
     let owner: RepositoryOwner
+    
+    // MARK: - Equatable
+    static func == (lhs: Repository, rhs: Repository) -> Bool {
+        lhs.id == rhs.id
+    }
 }
 
 struct RepositoryOwner: Decodable {
@@ -27,6 +32,6 @@ struct RepositoryOwner: Decodable {
     }
 }
 
-struct Repositories: Decodable {
+struct Repositories: Decodable, Equatable {
     let items: [Repository]
 }

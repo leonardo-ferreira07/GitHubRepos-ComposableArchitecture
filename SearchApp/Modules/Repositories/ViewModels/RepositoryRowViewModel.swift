@@ -45,7 +45,7 @@ struct RepositoryRowViewModel: Identifiable {
     }
 }
 
-extension RepositoryRowViewModel: Hashable {
+extension RepositoryRowViewModel: Hashable, Equatable {
     static func == (lhs: RepositoryRowViewModel, rhs: RepositoryRowViewModel) -> Bool {
         return lhs.id == rhs.id
     }
