@@ -10,8 +10,8 @@ import SwiftUI
 import ComposableArchitecture
 
 struct RepositoriesView: View {
-    let store: Store<RepositoriesSearchState, RepositoriesSearchAction>
     
+    private let store: Store<RepositoriesSearchState, RepositoriesSearchAction>
     private let pullRequestsBuilder: PullRequestsBuilder
     private let repositoriesNavigator: RepositoriesNavigator
     
