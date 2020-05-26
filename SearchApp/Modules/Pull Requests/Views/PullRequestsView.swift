@@ -34,7 +34,7 @@ struct PullRequestsView: View {
                     LoadingView(isLoading: viewModel.isLoading)
                 } else {
                     Section {
-                        ForEach(viewModel.dataSource, content: PullRequestView.init(viewModel:))
+                        ForEach(viewModel.dataSource, content: PullRequestViewRow.init(viewModel:))
                     }
                 }
             }

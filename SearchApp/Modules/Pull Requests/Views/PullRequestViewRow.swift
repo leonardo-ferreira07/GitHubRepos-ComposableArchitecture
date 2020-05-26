@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct PullRequestView: View {
+struct PullRequestViewRow: View {
     private let viewModel: PullRequestDetailViewModel
     
     init(viewModel: PullRequestDetailViewModel) {
@@ -34,6 +34,6 @@ struct PullRequestView: View {
 
 struct PullRequestView_Previews: PreviewProvider {
     static var previews: some View {
-        PullRequestView(viewModel: PullRequestDetailViewModel(item: PullRequest(title: "", body: "", date: "", user: RepositoryOwner(login: "", avatar: ""))))
+        PullRequestViewRow(viewModel: PullRequestDetailViewModel(item: PullRequest(title: "", body: "", date: "", user: RepositoryOwner(login: "", avatar: ""))))
     }
 }
