@@ -8,9 +8,10 @@
 
 import Foundation
 import Combine
+import ComposableArchitecture
 
 protocol PullRequestsFetchable {
-    func fetchPullRequests(withOwner owner: String, repository: String) -> AnyPublisher<[PullRequest], GenericError>
+    func fetchPullRequests(withOwner owner: String, repository: String) -> Effect<[PullRequest], GenericError>
 }
 
 struct PullRequestsService {
@@ -25,8 +26,8 @@ struct PullRequestsService {
 // MARK: - Fetchable
 
 extension PullRequestsService: PullRequestsFetchable {
-    func fetchPullRequests(withOwner owner: String, repository: String) -> AnyPublisher<[PullRequest], GenericError> {
-        return requester.request(with: makePullRequests(withOwner: owner, repository: repository))
+    func fetchPullRequests(withOwner owner: String, repository: String) -> Effect<[PullRequest], GenericError> {
+        return requester.requestE(with: makePullRequests(withOwner: owner, repository: repository))
     }
 }
 
