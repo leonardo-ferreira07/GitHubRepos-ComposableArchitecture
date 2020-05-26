@@ -7,10 +7,17 @@
 //
 
 import Foundation
+import ComposableArchitecture
 
 struct PullRequestsBuilder {
     func makePullRequestsView(pullRequestsFetcher: PullRequestsService, owner: String, repository: String) -> PullRequestsView {
-        let viewModel = PullRequestViewModel(pullRequestsFetcher: pullRequestsFetcher, owner: owner, repository: repository)
-        return PullRequestsView(viewModel: viewModel)
+        let store = Store(
+        initialState: PullRequestsState(pullRequests: [], owner: owner, repository: repository, isLoading: false),
+        reducer: PullRequestViewModel().pullRequestsReducer.debug(),
+        environment: PullRequestsEnvironment(
+            pullRequestsService: pullRequestsFetcher,
+            mainQueue: DispatchQueue.main.eraseToAnyScheduler())
+        )
+        return PullRequestsView(store: store)
     }
 }

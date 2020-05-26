@@ -7,48 +7,51 @@
 //
 
 import SwiftUI
+import ComposableArchitecture
 
 struct PullRequestsView: View {
-    @ObservedObject var viewModel: PullRequestViewModel
+    private let store: Store<PullRequestsState, PullRequestsAction>
 
-    init(viewModel: PullRequestViewModel) {
-      self.viewModel = viewModel
+    init(store: Store<PullRequestsState, PullRequestsAction>) {
+      self.store = store
     }
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 20) {
-            Spacer()
-            #if os(iOS) || os(macOS)
-                HStack(spacing: 10) {
-                    Text("Repository:")
-                        .font(.headline)
-                    Text(viewModel.repository)
-                        .font(.subheadline)
-                        .fixedSize(horizontal: false, vertical: true)
-                }
-                .padding(.leading, 20)
-            #endif
-            
-            List {
-                if viewModel.dataSource.isEmpty {
-                    LoadingView(isLoading: viewModel.isLoading)
-                } else {
-                    Section {
-                        ForEach(viewModel.dataSource, content: PullRequestViewRow.init(viewModel:))
+        WithViewStore(store) { viewStore in
+            VStack(alignment: .leading, spacing: 20) {
+                Spacer()
+                #if os(iOS) || os(macOS)
+                    HStack(spacing: 10) {
+                        Text("Repository:")
+                            .font(.headline)
+                        Text(viewStore.repository)
+                            .font(.subheadline)
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
+                    .padding(.leading, 20)
+                #endif
+                
+                List {
+                    if viewStore.pullRequests.isEmpty {
+                        LoadingView(isLoading: viewStore.isLoading)
+                    } else {
+                        Section {
+                            ForEach(viewStore.pullRequests, content: PullRequestViewRow.init(viewModel:))
+                        }
                     }
                 }
+                
             }
-            
+            .navigationBarTitle("Pull Requests")
+            .onAppear(perform: {
+                viewStore.send(.fetchPR)
+            })
         }
-        .navigationBarTitle("Pull Requests")
-        .onAppear(perform: viewModel.onAppear)
-        .onDisappear(perform: viewModel.onDisappear)
-        
     }
 }
 
-struct PullRequestsView_Previews: PreviewProvider {
-    static var previews: some View {
-        PullRequestsView(viewModel: PullRequestViewModel(pullRequestsFetcher: PullRequestsService(), owner: "", repository: ""))
-    }
-}
+//struct PullRequestsView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        PullRequestsView(viewModel: PullRequestViewModel(pullRequestsFetcher: PullRequestsService(), owner: "", repository: ""))
+//    }
+//}

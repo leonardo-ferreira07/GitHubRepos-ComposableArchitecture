@@ -9,50 +9,55 @@
 import Foundation
 import Combine
 
-class PullRequestViewModel: ViewModel {
+
+import ComposableArchitecture
+
+struct PullRequestsState: Equatable {
+    var pullRequests: [PullRequestDetailViewModel] = []
+    var owner: String = ""
+    var repository: String = ""
+    var isLoading: Bool = false
+}
+
+enum PullRequestsAction: Equatable {
+    case pullRequestsResponse(Result<[PullRequest], GenericError>)
+    case fetchPR
+}
+
+struct PullRequestsEnvironment {
+    var pullRequestsService: PullRequestsService
+    var mainQueue: AnySchedulerOf<DispatchQueue>
+}
+
+class PullRequestViewModel: NSObject {
     
-    @Published private(set) var dataSource: [PullRequestDetailViewModel] = []
-    
-    let repository: String
-    private let owner: String
-    private let pullRequestsFetcher: PullRequestsService
-    
-    init(pullRequestsFetcher: PullRequestsService, owner: String, repository: String) {
-        self.pullRequestsFetcher = pullRequestsFetcher
-        self.owner = owner
-        self.repository = repository
-    }
-    
-    // MARK: - Methods
-    func onAppear() {
-        fetchPullRequests()
-    }
-    
-    private func fetchPullRequests() {
-        DispatchQueue.main.async { [weak self] in self?.startLoading() }
-        
-        pullRequestsFetcher.fetchPullRequests(withOwner: owner, repository: repository)
-        .map { response in
-            response.map(PullRequestDetailViewModel.init)
+    // MARK: - Pull requests reducer
+
+    let pullRequestsReducer = Reducer<PullRequestsState, PullRequestsAction, PullRequestsEnvironment> {
+        state, action, environment in
+        switch action {
+        case .pullRequestsResponse(.failure):
+            state.pullRequests = []
+            state.isLoading = false
+            return .none
+            
+        case let .pullRequestsResponse(.success(response)):
+            state.pullRequests = response.map(PullRequestDetailViewModel.init)
+            state.isLoading = false
+            return .none
+            
+        case .fetchPR:
+            struct PullRequestId: Hashable {}
+            
+            state.isLoading = true
+            return environment.pullRequestsService
+                .fetchPullRequests(withOwner: state.owner, repository: state.repository)
+                .receive(on: environment.mainQueue)
+                .catchToEffect()
+                .cancellable(id: PullRequestId(), cancelInFlight: true)
+                .map(PullRequestsAction.pullRequestsResponse)
         }
-        .map(Array.removeDuplicates)
-        .receive(on: DispatchQueue.main)
-        .sink(receiveCompletion: { [weak self] value in
-            guard let self = self else { return }
-            switch value {
-            case .failure( let error):
-                print("## \(error)")
-                self.stopLoading()
-                self.dataSource = []
-            case .finished:
-                break
-            }
-        },
-        receiveValue: { [weak self] pullRequests in
-            guard let self = self else { return }
-            self.stopLoading()
-            self.dataSource = pullRequests
-        })
-        .store(in: &disposables)
+
     }
+    
 }
