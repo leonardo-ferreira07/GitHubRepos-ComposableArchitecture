@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct PullRequest: Decodable {
+struct PullRequest: Decodable, Equatable {
     let title: String
     let body: String
     let date: String
@@ -21,5 +21,9 @@ struct PullRequest: Decodable {
         case body
         case date = "created_at"
         case user
+    }
+    
+    static func == (lhs: PullRequest, rhs: PullRequest) -> Bool {
+        lhs.title == lhs.title
     }
 }
