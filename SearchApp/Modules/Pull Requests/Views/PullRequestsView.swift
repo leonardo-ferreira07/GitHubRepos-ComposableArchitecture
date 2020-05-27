@@ -10,9 +10,9 @@ import SwiftUI
 import ComposableArchitecture
 
 struct PullRequestsView: View {
-    private let store: Store<PullRequestsState, PullRequestsAction>
+    private let store: Store<PullRequestViewModel.PullRequestsState, PullRequestViewModel.PullRequestsAction>
 
-    init(store: Store<PullRequestsState, PullRequestsAction>) {
+    init(store: Store<PullRequestViewModel.PullRequestsState, PullRequestViewModel.PullRequestsAction>) {
       self.store = store
     }
     

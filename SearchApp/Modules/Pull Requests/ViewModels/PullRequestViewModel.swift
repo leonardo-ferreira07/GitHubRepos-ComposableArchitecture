@@ -12,24 +12,24 @@ import Combine
 
 import ComposableArchitecture
 
-struct PullRequestsState: Equatable {
-    var pullRequests: [PullRequestDetailViewModel] = []
-    var owner: String = ""
-    var repository: String = ""
-    var isLoading: Bool = false
-}
-
-enum PullRequestsAction: Equatable {
-    case pullRequestsResponse(Result<[PullRequest], GenericError>)
-    case fetchPR
-}
-
-struct PullRequestsEnvironment {
-    var pullRequestsService: PullRequestsService
-    var mainQueue: AnySchedulerOf<DispatchQueue>
-}
-
 class PullRequestViewModel: NSObject {
+    
+    struct PullRequestsState: Equatable {
+        var pullRequests: [PullRequestDetailViewModel] = []
+        var owner: String = ""
+        var repository: String = ""
+        var isLoading: Bool = false
+    }
+
+    enum PullRequestsAction: Equatable {
+        case pullRequestsResponse(Result<[PullRequest], GenericError>)
+        case fetchPR
+    }
+
+    struct PullRequestsEnvironment {
+        var pullRequestsService: PullRequestsService
+        var mainQueue: AnySchedulerOf<DispatchQueue>
+    }
     
     // MARK: - Pull requests reducer
 
