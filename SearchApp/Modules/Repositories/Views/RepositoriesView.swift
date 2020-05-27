@@ -11,11 +11,11 @@ import ComposableArchitecture
 
 struct RepositoriesView: View {
     
-    private let store: Store<RepositoriesSearchState, RepositoriesSearchAction>
+    private let store: Store<RepositoriesViewModel.RepositoriesSearchState, RepositoriesViewModel.RepositoriesSearchAction>
     private let pullRequestsBuilder: PullRequestsBuilder
     private let repositoriesNavigator: RepositoriesNavigator
     
-    init(store: Store<RepositoriesSearchState, RepositoriesSearchAction>,
+    init(store: Store<RepositoriesViewModel.RepositoriesSearchState, RepositoriesViewModel.RepositoriesSearchAction>,
          repositoriesNavigator: RepositoriesNavigator) {
         self.store = store
         self.pullRequestsBuilder = .init()
@@ -40,7 +40,7 @@ struct RepositoriesView: View {
 
 private extension RepositoriesView {
     
-    func myBody(_ store: ViewStore<RepositoriesSearchState, RepositoriesSearchAction>) -> some View {
+    func myBody(_ store: ViewStore<RepositoriesViewModel.RepositoriesSearchState, RepositoriesViewModel.RepositoriesSearchAction>) -> some View {
         #if os(watchOS)
             return list(store)
         #else
@@ -57,7 +57,7 @@ private extension RepositoriesView {
         #endif
     }
     
-    func list(_ store: ViewStore<RepositoriesSearchState, RepositoriesSearchAction>) -> some View {
+    func list(_ store: ViewStore<RepositoriesViewModel.RepositoriesSearchState, RepositoriesViewModel.RepositoriesSearchAction>) -> some View {
         List {
             SearchView(store: store)
             
@@ -70,7 +70,7 @@ private extension RepositoriesView {
         }
     }
     
-    func repositoriesSection(_ store: ViewStore<RepositoriesSearchState, RepositoriesSearchAction>) -> some View {
+    func repositoriesSection(_ store: ViewStore<RepositoriesViewModel.RepositoriesSearchState, RepositoriesViewModel.RepositoriesSearchAction>) -> some View {
         Section {
             ForEach(store.repositories) { (repo) in
                 self.repositoriesNavigator.navigateToPullRequests(repo)
@@ -78,7 +78,7 @@ private extension RepositoriesView {
         }
     }
     
-    func searchingForSection(_ store: ViewStore<RepositoriesSearchState, RepositoriesSearchAction>) -> some View {
+    func searchingForSection(_ store: ViewStore<RepositoriesViewModel.RepositoriesSearchState, RepositoriesViewModel.RepositoriesSearchAction>) -> some View {
         Section {
             VStack(alignment: .leading) {
                 Text("Searching for:")

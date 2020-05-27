@@ -10,23 +10,23 @@ import Foundation
 import Combine
 import ComposableArchitecture
 
-struct RepositoriesSearchState: Equatable {
-    var repositories: [RepositoryRowViewModel] = []
-    var searchQuery = ""
-    var isLoading: Bool = false
-}
-
-enum RepositoriesSearchAction: Equatable {
-    case repositoriesResponse(Result<Repositories, GenericError>)
-    case searchQueryChanged(String)
-}
-
-struct RepositoriesSearchEnvironment {
-    var repositoryService: RepositoriesService
-    var mainQueue: AnySchedulerOf<DispatchQueue>
-}
-
 class RepositoriesViewModel: NSObject {
+    
+    struct RepositoriesSearchState: Equatable {
+        var repositories: [RepositoryRowViewModel] = []
+        var searchQuery = ""
+        var isLoading: Bool = false
+    }
+
+    enum RepositoriesSearchAction: Equatable {
+        case repositoriesResponse(Result<Repositories, GenericError>)
+        case searchQueryChanged(String)
+    }
+
+    struct RepositoriesSearchEnvironment {
+        var repositoryService: RepositoriesService
+        var mainQueue: AnySchedulerOf<DispatchQueue>
+    }
     
     // MARK: - Search feature reducer
 

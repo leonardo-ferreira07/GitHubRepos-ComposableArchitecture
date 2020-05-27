@@ -14,9 +14,9 @@ struct RepositoriesBuilder {
         let viewModel = RepositoriesViewModel()
         let repoNavigator = RepositoriesNavigator(pullRequestsBuilder: PullRequestsBuilder())
         let store = Store(
-        initialState: RepositoriesSearchState(),
+            initialState: RepositoriesViewModel.RepositoriesSearchState(),
         reducer: viewModel.repoSearchReducer.debug(),
-        environment: RepositoriesSearchEnvironment(
+        environment: RepositoriesViewModel.RepositoriesSearchEnvironment(
           repositoryService: repositoriesFetcher,
           mainQueue: DispatchQueue.main.eraseToAnyScheduler())
         )

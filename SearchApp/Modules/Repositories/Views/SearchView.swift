@@ -10,9 +10,9 @@ import SwiftUI
 import ComposableArchitecture
 
 struct SearchView: View {
-    let store: ViewStore<RepositoriesSearchState, RepositoriesSearchAction>
+    let store: ViewStore<RepositoriesViewModel.RepositoriesSearchState, RepositoriesViewModel.RepositoriesSearchAction>
     
-    init(store: ViewStore<RepositoriesSearchState, RepositoriesSearchAction>) {
+    init(store: ViewStore<RepositoriesViewModel.RepositoriesSearchState, RepositoriesViewModel.RepositoriesSearchAction>) {
         self.store = store
     }
     
@@ -20,10 +20,10 @@ struct SearchView: View {
         HStack(alignment: .center) {
             #if os(watchOS)
                 TextField("e.g. Swift", text: store.binding(
-                get: { $0.searchQuery }, send: RepositoriesSearchAction.searchQueryChanged))
+                    get: { $0.searchQuery }, send: RepositoriesViewModel.RepositoriesSearchAction.searchQueryChanged))
             #else
                 TextField("e.g. Swift", text: store.binding(
-                get: { $0.searchQuery }, send: RepositoriesSearchAction.searchQueryChanged))
+                    get: { $0.searchQuery }, send: RepositoriesViewModel.RepositoriesSearchAction.searchQueryChanged))
                     .disableAutocorrection(true)
             #endif
         }
