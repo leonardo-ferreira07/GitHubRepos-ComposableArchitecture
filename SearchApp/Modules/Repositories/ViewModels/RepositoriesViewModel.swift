@@ -24,7 +24,7 @@ class RepositoriesViewModel: NSObject {
     }
 
     struct RepositoriesSearchEnvironment {
-        var repositoryService: RepositoriesService
+        var repositoryService: RepositoriesFetchable
         var mainQueue: AnySchedulerOf<DispatchQueue>
     }
     

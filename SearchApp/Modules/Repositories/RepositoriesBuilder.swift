@@ -10,7 +10,7 @@ import SwiftUI
 import ComposableArchitecture
 
 struct RepositoriesBuilder {
-    func makeRepositoriesView(repositoriesFetcher: RepositoriesService) -> RepositoriesView {
+    func makeRepositoriesView(repositoriesFetcher: RepositoriesFetchable) -> RepositoriesView {
         let viewModel = RepositoriesViewModel()
         let repoNavigator = RepositoriesNavigator(pullRequestsBuilder: PullRequestsBuilder())
         let store = Store(

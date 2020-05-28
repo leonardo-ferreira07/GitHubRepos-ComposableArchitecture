@@ -61,7 +61,7 @@
 		A7CC6781242AC2F7000C3597 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D9D0AE24227F6800850327 /* Constants.swift */; };
 		A7CC6782242AC2F7000C3597 /* RequestMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75B25B124254E1E00C80A5A /* RequestMethod.swift */; };
 		A7CC6783242AC2F7000C3597 /* Decoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D9D09A2422799700850327 /* Decoder.swift */; };
-		A7D66F4E247F353000CF19D0 /* SearchAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D66F4D247F353000CF19D0 /* SearchAppTests.swift */; };
+		A7D66F56247F35CE00CF19D0 /* RepositoriesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D66F55247F35CE00CF19D0 /* RepositoriesTests.swift */; };
 		A7D9D09B2422799700850327 /* Decoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D9D09A2422799700850327 /* Decoder.swift */; };
 		A7D9D09E242279D500850327 /* GenericError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D9D09D242279D500850327 /* GenericError.swift */; };
 		A7D9D0A124227A5D00850327 /* Array+Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D9D0A024227A5D00850327 /* Array+Filter.swift */; };
@@ -166,8 +166,8 @@
 		A7C0F59B22CEB4F0008BEDA2 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		A7C38B20242AA7840021377A /* SearchApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SearchApp.entitlements; sourceTree = "<group>"; };
 		A7D66F4B247F353000CF19D0 /* SearchAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SearchAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		A7D66F4D247F353000CF19D0 /* SearchAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAppTests.swift; sourceTree = "<group>"; };
 		A7D66F4F247F353000CF19D0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A7D66F55247F35CE00CF19D0 /* RepositoriesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoriesTests.swift; sourceTree = "<group>"; };
 		A7D9D09A2422799700850327 /* Decoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Decoder.swift; sourceTree = "<group>"; };
 		A7D9D09D242279D500850327 /* GenericError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericError.swift; sourceTree = "<group>"; };
 		A7D9D0A024227A5D00850327 /* Array+Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Filter.swift"; sourceTree = "<group>"; };
@@ -360,8 +360,8 @@
 		A7D66F4C247F353000CF19D0 /* SearchAppTests */ = {
 			isa = PBXGroup;
 			children = (
-				A7D66F4D247F353000CF19D0 /* SearchAppTests.swift */,
 				A7D66F4F247F353000CF19D0 /* Info.plist */,
+				A7D66F55247F35CE00CF19D0 /* RepositoriesTests.swift */,
 			);
 			path = SearchAppTests;
 			sourceTree = "<group>";
@@ -563,6 +563,7 @@
 					};
 					A7D66F4A247F353000CF19D0 = {
 						CreatedOnToolsVersion = 11.5;
+						LastSwiftMigration = 1150;
 						TestTargetID = A7C0F57F22CEABB8008BEDA2;
 					};
 				};
@@ -706,7 +707,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A7D66F4E247F353000CF19D0 /* SearchAppTests.swift in Sources */,
+				A7D66F56247F35CE00CF19D0 /* RepositoriesTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -999,6 +1000,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = R22VMQT29M;
 				INFOPLIST_FILE = SearchAppTests/Info.plist;
@@ -1010,6 +1012,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.leonardo.ferreira.SearchAppTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SearchApp.app/SearchApp";
@@ -1020,6 +1023,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = R22VMQT29M;
 				INFOPLIST_FILE = SearchAppTests/Info.plist;
