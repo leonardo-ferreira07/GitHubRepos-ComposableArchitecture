@@ -10,7 +10,7 @@ import Foundation
 import ComposableArchitecture
 
 struct PullRequestsBuilder {
-    func makePullRequestsView(pullRequestsFetcher: PullRequestsService, owner: String, repository: String) -> PullRequestsView {
+    func makePullRequestsView(pullRequestsFetcher: PullRequestsFetchable, owner: String, repository: String) -> PullRequestsView {
         let store = Store(
             initialState: PullRequestViewModel.PullRequestsState(pullRequests: [], owner: owner, repository: repository, isLoading: false),
         reducer: PullRequestViewModel().pullRequestsReducer.debug(),

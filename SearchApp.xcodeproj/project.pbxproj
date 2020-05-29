@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A73C904B2481794700C0343F /* PullRequestsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73C904A2481794700C0343F /* PullRequestsTests.swift */; };
 		A75AB503242AC28B0099D77A /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A75AB501242AC28B0099D77A /* Interface.storyboard */; };
 		A75AB505242AC28C0099D77A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A75AB504242AC28C0099D77A /* Assets.xcassets */; };
 		A75AB50C242AC28C0099D77A /* SearchAppWatch Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = A75AB50B242AC28C0099D77A /* SearchAppWatch Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -127,6 +128,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		A73C904A2481794700C0343F /* PullRequestsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullRequestsTests.swift; sourceTree = "<group>"; };
 		A75AB4FF242AC28B0099D77A /* SearchAppWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SearchAppWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A75AB502242AC28B0099D77A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
 		A75AB504242AC28C0099D77A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -356,6 +358,7 @@
 			children = (
 				A7D66F4F247F353000CF19D0 /* Info.plist */,
 				A7D66F55247F35CE00CF19D0 /* RepositoriesTests.swift */,
+				A73C904A2481794700C0343F /* PullRequestsTests.swift */,
 			);
 			path = SearchAppTests;
 			sourceTree = "<group>";
@@ -695,6 +698,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A73C904B2481794700C0343F /* PullRequestsTests.swift in Sources */,
 				A7D66F56247F35CE00CF19D0 /* RepositoriesTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

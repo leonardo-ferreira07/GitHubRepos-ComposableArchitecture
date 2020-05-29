@@ -27,7 +27,7 @@ class PullRequestViewModel: NSObject {
     }
 
     struct PullRequestsEnvironment {
-        var pullRequestsService: PullRequestsService
+        var pullRequestsService: PullRequestsFetchable
         var mainQueue: AnySchedulerOf<DispatchQueue>
     }
     
