@@ -27,7 +27,7 @@ struct RepositoriesService {
 
 extension RepositoriesService: RepositoriesFetchable {
     func fetchRepositories(forText text: String) -> Effect<Repositories, GenericError> {
-        return requester.requestE(with: makeRepositoriesSearch(withText: text))
+        return requester.request(with: makeRepositoriesSearch(withText: text))
     }
 }
 

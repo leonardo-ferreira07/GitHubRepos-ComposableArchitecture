@@ -27,7 +27,7 @@ struct PullRequestsService {
 
 extension PullRequestsService: PullRequestsFetchable {
     func fetchPullRequests(withOwner owner: String, repository: String) -> Effect<[PullRequest], GenericError> {
-        return requester.requestE(with: makePullRequests(withOwner: owner, repository: repository))
+        return requester.request(with: makePullRequests(withOwner: owner, repository: repository))
     }
 }
 
